@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta Bname="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="soal.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>Soal Kuis</title>
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+    crossorigin="anonymous">
+
+
+
+</head>
+<body>
+<div id="quiz-container">
+    <div id="opening_window">
+        <h1>Selamat Mengerjakan !</h1>
+        <h3>Soal 5. PENDIDIKAN ABAD 21</h3>
+        <p id="warningMessage" style="color: red; display: none;">Silakan isi form dengan lengkap.</p>
+        <form id="groupForm">
+            <label class="openingLabel" for="groupName">Nama Kelompok:</label>
+            <input type="text" id="groupName" required>
+    
+            <label class="openingLabel" for="groupMembers">Anggota Kelompok:</label>
+            <textarea id="groupMembers" rows="1" required></textarea>
+            <textarea id="groupMembers" rows="1" required></textarea>
+            <textarea id="groupMembers" rows="1" required></textarea>
+            <textarea id="groupMembers" rows="1" required></textarea>
+    
+            <button onclick="startQuiz(event)">Mulai</button>
+        </form>
+        
+    </div>
+
+    <div id="quiz_window" class="hidden">
+
+        <h1 id="question"></h1>
+
+        <input type="radio" name="choices" data-id="0" id="choice0">
+        <label class="quizLabel" for="choice0" id="choiceText0"></label>
+
+        <input type="radio" name="choices" data-id="1" id="choice1">
+        <label class="quizLabel" for="choice1" id="choiceText1"></label>
+
+        <input type="radio" name="choices" data-id="2" id="choice2">
+        <label class="quizLabel" for="choice2" id="choiceText2"></label>
+
+        <input type="radio" name="choices" data-id="3" id="choice3">
+        <label class="quizLabel" for="choice3" id="choiceText3"></label>
+
+        <br>
+
+        <button onclick="nextQuestion()">Next</button>
+
+    </div>
+
+    <div id="closing_window" class="hidden">
+        <h1>Selesai !</h1>
+        <h2 id="groupInfo"></h2>
+        <h2 id="scoreText"></h2>
+        <a href="soal.html" class="cta">Daftar Soal</a>
+    </div>
+</div>
+
+<audio id="myAudio" src="dream, ivory.mp3" loop></audio>
+
+<div id="musicPlayer">
+    <i id="toggleBtn" class="ri-volume-up-fill controlBtn"></i>
+</div>
+
+        <script>
+            let menu = document.querySelector('#menu-icon');
+            let navbar = document.querySelector('#main-nav');
+
+            menu.onclick = () => {
+                menu.classList.toggle('bx-x');
+                navbar.classList.toggle('open');
+            };
+        </script>
+
+        <script>
+            //DATA
+            const DB_QUIZ = [
+                {
+                    question: "1. Apa dimaksud dengan pembelajaran abad 21?",
+                    answer: ['A. Suatu peralihan pembelajaran dimana kurikulum yang dikembangkan menuntun sekolah untuk mengubah pendekatan pembelajaran dari teacher centred menjadi student centered.', 'B. Bantuan yang diberikan pendidik agar dapat terjadi proses perolehan ilmu dan pengetahuan, penguasaan kemahiran dan tabiat, serta pembentukan sikap dan kepercayaan pada peserta didik.', 'C. Suatu proses yang dilakukan dengan memberikan pendidikan dan pelatihan kepada peserta didik untuk mencapai hasil belajar.', 'D. Suatu proses interaksi antara pendidik dengan peserta didik, dan sumber belajar pada satuan lingkungan pendidikan.',],
+                },
+                {
+                    question: "2. Mengapa pembelajaran abad 21 dikatakan sebagai suatu peralihan pembelajaran?",
+                    answer: ['A. Karena hal ini tidak sesuai dengan pembelajaran abad 21', 'B. Karena sesuai dengan zaman modern pada saat ini', 'C. Karena hal ini sesuai dengan tuntutan masa depan dimana peserta didik harus memiliki kecakapan berpikir dan belajar.', 'D. Karena hal ini tidak sesuai dengan kemauan para pendidik',],
+                },
+                {
+                    question: "3. Pendidikan Abad 21 menjadi semakin penting untuk menjamin peserta didik memiliki keterampilan?",
+                    answer: ['A. Beradaptasi dengan mudah', 'B. Menggunakan teknologi media dan informasi', 'C. Public speaking', 'D. Kemampuan bahasa asing',],
+                },
+                {
+                    question: "4. Apa saja aspek-aspek dalam pendekatan saintifik?",
+                    answer: ['A. (Questioning, Associate, Networking, Observing, Informing)', 'B. (Questioning, Informing, Guiding, Observing, Trekking)', 'C. (Informing, Experimenting, Trekking, Guiding, Associating)', 'D. (Associating, Questioning, Observing, Networking, Experimenting)',],
+                },
+                {
+                    question: "5. Apa yang dimaksud dengan kemampuan Associating...",
+                    answer: ['A. Kemampuan untuk mengasosiasikan satu peristiwa dengan peristiwa lainnya, yakin kemampuan untuk menghubungkan sesuatu yang kelihatannya memiliki latar belakang tidak memiliki keterhubungan masalah, pertanyaan, atau gagasan dari berbagai aspek yang berbeda', 'B. Yaitu kemampuan pengamatan lingkungan sekelilingnya dengan teliti termasuk diantaranya teman, keluarga, lingkungan dan masyarakat selain itu juga melihat perkembangan teknologi, sekolah, kota dan sebagainya', 'C. Yaitu kemampuan membuat jejaring untuk memperoleh hasil yang lebih baik untuk menemukan sesuatu yang baru, mengujinya melalui jejaring yang berbeda, baik individual atau kelompok yang memiliki latar belakang yang berbeda', 'D. Yaitu kemampuan eksperimen untuk mencapai inovasi untuk mencoba dan mengimplementasikan gagasan baru',],
+                },
+                {
+                    question: "6. Bagaimana proses pembelajaran seorang guru pada aspek kemampuan observing...",
+                    answer: ['A. Dalam pembelajaran, siswa dimotivasi untuk melihat sekelilingnya, termasuk mengamati interior ruang tidurnya, mengamati dapur di rumah atau interior lain yang dijumpai di lokasi terdekat antara lain toko, cafe, warung internet dan terminal atau bandara. Hasil pengamatan akan menemukan kedalaman gagasan dan menemukan hal baru untuk melakukan sesuatu', 'B. Seorang guru mengajak siswa untuk melakukan eksperimen desain misalnya membuat furniture dari karton bekas kemasan (corrugated board), dan dengan bahan lain. Eksperimen tersebut menjadi mencoba, mencipta, membuat, atau melakukan eksperimen', 'C. Dalam pembelajaran, siswa diajak untuk mengembangkan jejaring melalui jejaring sosial di internet, kelompok kerja, kelompok diskusi, atau kelompok lain yang dapat memotivasi mereka untuk meningkatkan pengetahuannya tentang desain', 'D. Untuk memberikan pembelajaran desain guru dapat memotivasi siswa untuk mengasosiasikan (menghubungkan) kepribadian dengan warna dinding interior ruang tidur anak-anak',],
+                },
+                {
+                    question: "7. Apa pengertian penilaian autentik menurut American Library Association...",
+                    answer: ['A. Proses pengumpulan informasi oleh guru tentang perkembangan', 'B. Sebagai proses evaluasi untuk mengukur kinerja, prestasi, motivasi, dan sikap-sikap peserta didik pada aktifitas yang relevan dalam pembelajaran.', 'C. Penilaian yang mengharuskan siswa untuk bisa tanpa melihat kemampuan siwa', 'D. Pengukuran yang bermakna secara signifikan atas hasil belajar peserta didik untuk ranah sikap, keterampilan, dan pengetahuan',],
+                },
+                {
+                    question: "8. Istilah 'autentik' merupakan sinonim dari...",
+                    answer: ['A. Nyata, valid dan asli', 'B. Berbayang, samar dan buram', 'C. Terbilang dan ganda', 'D. Palsu',],
+                },
+                {
+                    question: "9. Ada berapa teknik dalam penilaian autentik..",
+                    answer: ['A. 6', 'B. 2', 'C. 8', 'D. 3',],
+                },
+                {
+                    question: "10. Apa yang dimaksud dengan Life and Career Skills?",
+                    answer: ['A. Keterampilan kreativitas dan inovasi', 'B. Keterampilan berpikir kritis dan mengatasi masalah', 'C. Keterampilan Media dan informasi', 'D. Keterampilan hidup dan berkarir',],
+                },
+                {
+                    question: "11. Dibawah ini yang bukan keterampilan abad 21 adalah...",
+                    answer: ['A. Learning and Innovation skills', 'B. Life and Career Skills', 'C. Life Information and Associating Skills', 'D. Information Media and Technology Skills',],
+                },
+                {
+                    question: "12. Learning to be diartikan sebagai proses pemahaman terhadap?",
+                    answer: ['A. Kebutuhan dan jati diri', 'B. Peran teman', 'C. Bekerja kelompok', 'D. Belajar mandiri',],
+                },
+                {
+                    question: "13. Kreativitas Dan inovasi masuk ke dalam?",
+                    answer: ['A. Learning and Innovation skills', 'B. Life and Career Skills', 'C. Life Information and Associating Skills', 'D. Information Media and Technology Skills',],
+                },
+                {
+                    question: "14. Apa peran UNESCO?",
+                    answer: ['A. Mengkampanyekan kedamaian dan keamanan dengan mempromosikan kerja sama antar negara melalui pendidikan, sains, dan budaya dalam rangka meningkatkan rasa hormat universal kepada keadilan, peraturan hukum, dan HAM dan kebebasan dasar', 'B. Mempromosikan pengalaman belajar dalam pendidikan yang di orientasikan pada pencapaian tanah kognitif, efektif dan psikomotorik', 'C. Dapat meningkatkan kedamaian dan keamanan belajar pada tingkat yang rendah yakni belajar yang lebih menekankan pada ranah kognitif', 'D. Untuk meningkatkan rasa hormat universal kepada keadilan peraturan hukum dan HAM dan kebebasan dasar. Keberhasilan pendidikan abad 21 diukur dari hasil 4 pilar pengalaman',],
+                },
+                {
+                    question: "15. Didirikan pada tanggal berapakah Perserikatan Bangsa-Bangsa(PBB)?",
+                    answer: ['A. 4 November 1946', 'B. 5 Januari 1986', 'C. 4 Agustus 1966', 'D. 8 November 1968',],
+                },
+                {
+                    question: "16. Apa yang menjadi fokus utama dalam pembelajaran abad 21?",
+                    answer: ['A. Pencapaian nilai tinggi', 'B. Pemahaman konten saja', 'C. Keterampilan abad 21', 'D. Tradisi pembelajaran konvensional',],
+                },
+                {
+                    question: "17. Manakah dari berikut yang merupakan karakteristik pembelajaran abad 21?",
+                    answer: ['A. Memorakporandakan fakta', 'B. Pemecahan masalah', 'C. Pemberian tugas rutin', 'D. Pembelajaran pasif',],
+                },
+                {
+                    question: "18. Bagaimana peran teknologi dalam pembelajaran abad 21?",
+                    answer: ['A. Tidak relevan', 'B. Hanya sebagai hiburan', 'C. Mendukung kolaborasi dan kreativitas', 'D. Menggantikan peran guru',],
+                },
+                {
+                    question: "19. Mengapa keterampilan interpersonal penting dalam pembelajaran abad 21?",
+                    answer: ['A. Hanya untuk kepentingan sosial', 'B. Meningkatkan kerjasama dan komunikasi', 'C. Tidak relevan dalam konteks pembelajaran', 'D. Hanya berlaku di lingkungan kerja',],
+                },
+                {
+                    question: "20. Ciri utama masyarakat informasi adalah bahwa semua aktifitas masyarakatnya berbasis pada….",
+                    answer: ['A. Penerapan', 'B. Pengetahuan', 'C. Pencitraan', 'D. Pengalaman',],
+                },
+            ]
+
+            const CORRECT_ANSWER = [0, 2, 1, 3, 0, 0, 1, 0, 3, 3, 2, 0, 0, 0, 0, 2, 1, 2, 1, 1]
+
+
+            //SETUP QUESTION
+
+            function startQuiz(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Check if the form is filled out completely
+            const groupName = document.getElementById('groupName').value;
+            const groupMembers = document.getElementById('groupMembers').value;
+
+            if (groupName.trim() === '' || groupMembers.trim() === '') {
+                // Display the warning message and don't proceed to the quiz
+                document.getElementById('warningMessage').style.display = 'block';
+            } else {
+                // Hide the warning message and proceed to the quiz
+                document.getElementById('warningMessage').style.display = 'none';
+                document.getElementById('opening_window').style.display = "none";
+                document.getElementById('quiz_window').style.display = "block";
+            }
+        }
+
+            let current_q = 0
+            let total_score = 0
+            let saved_answer = []
+            
+            document.addEventListener("DOMContentLoaded", function(event) {
+                setupQuestion()
+            });
+
+            function setupQuestion() {
+                document.getElementById('question').innerText = DB_QUIZ[current_q]['question']
+                document.getElementById('choiceText0').innerText = DB_QUIZ[current_q]['answer'][0]
+                document.getElementById('choiceText1').innerText = DB_QUIZ[current_q]['answer'][1]
+                document.getElementById('choiceText2').innerText = DB_QUIZ[current_q]['answer'][2]
+                document.getElementById('choiceText3').innerText = DB_QUIZ[current_q]['answer'][3]
+            }
+
+            function nextQuestion() {
+                current_q++
+
+                saveAnswer()
+
+                if(current_q > DB_QUIZ.length - 1)
+                    stopQuiz()
+
+                resetState()
+
+                setupQuestion()
+            }
+
+            function resetState() {
+                const chooseAnswer = document.querySelector('input[name="choices"]:checked')
+                if (chooseAnswer != null)
+                    chooseAnswer.checked = false
+            }
+
+            function stopQuiz() {
+                checkScore()
+
+                const groupInfo = document.getElementById('groupInfo');
+                const groupName = document.getElementById('groupName').value;
+                //const groupMembers = document.getElementById('groupMembers').value;
+
+                groupInfo.innerHTML = `Kelompok: ${groupName}`;
+                //<br>Anggota Kelompok: ${groupMembers}
+
+
+                document.getElementById('quiz_window').style.display = "none"
+                document.getElementById('closing_window').style.display = "block"
+
+                document.getElementById('scoreText').innerHTML = "Score Anda ... " + total_score
+                return
+            }
+
+            function saveAnswer() {
+                const answer = checkedRadio = document.querySelector('input[name="choices"]:checked');
+                if (answer != null) {
+                    saved_answer.push(parseInt(answer.getAttribute('data-id')))
+                } else {
+                    //default answer A
+                    saved_answer.push(-1)
+                }
+            }
+
+            function checkScore() {
+                for (i = 0; i < saved_answer.length; i++) {
+                    if (saved_answer[i] == CORRECT_ANSWER[i])
+                        total_score += 5
+                }
+            }
+        </script>
+
+<script>
+    var audio = document.getElementById("myAudio");
+    var toggleBtn = document.getElementById("toggleBtn");
+
+    toggleBtn.addEventListener("click", function() {
+        if (audio.paused) {
+            audio.play();
+            toggleBtn.className = "ri-volume-mute-fill controlBtn"; 
+        } else {
+            audio.pause();
+            toggleBtn.className = "ri-volume-up-fill controlBtn"; 
+        }
+    });
+</script>
+
+</body>
+</html>

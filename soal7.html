@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta Bname="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="soal.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>Soal Kuis</title>
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+    crossorigin="anonymous">
+
+
+
+</head>
+<body>
+<div id="quiz-container">
+    <div id="opening_window">
+        <h1>Selamat Mengerjakan !</h1>
+        <h3>Soal 7. PERMASALAHAN PENDIDIKAN NASIONAL</h3>
+        <p id="warningMessage" style="color: red; display: none;">Silakan isi form dengan lengkap.</p>
+        <form id="groupForm">
+            <label class="openingLabel" for="groupName">Nama Kelompok:</label>
+            <input type="text" id="groupName" required>
+    
+            <label class="openingLabel" for="groupMembers">Anggota Kelompok:</label>
+            <textarea id="groupMembers" rows="1" required></textarea>
+            <textarea id="groupMembers" rows="1" required></textarea>
+            <textarea id="groupMembers" rows="1" required></textarea>
+            <textarea id="groupMembers" rows="1" required></textarea>
+    
+            <button onclick="startQuiz(event)">Mulai</button>
+        </form>
+        
+    </div>
+
+    <div id="quiz_window" class="hidden">
+
+        <h1 id="question"></h1>
+
+        <input type="radio" name="choices" data-id="0" id="choice0">
+        <label class="quizLabel" for="choice0" id="choiceText0"></label>
+
+        <input type="radio" name="choices" data-id="1" id="choice1">
+        <label class="quizLabel" for="choice1" id="choiceText1"></label>
+
+        <input type="radio" name="choices" data-id="2" id="choice2">
+        <label class="quizLabel" for="choice2" id="choiceText2"></label>
+
+        <input type="radio" name="choices" data-id="3" id="choice3">
+        <label class="quizLabel" for="choice3" id="choiceText3"></label>
+
+        <br>
+
+        <button onclick="nextQuestion()">Next</button>
+
+    </div>
+
+    <div id="closing_window" class="hidden">
+        <h1>Selesai !</h1>
+        <h2 id="groupInfo"></h2>
+        <h2 id="scoreText"></h2>
+        <a href="soal.html" class="cta">Daftar Soal</a>
+    </div>
+</div>
+
+<audio id="myAudio" src="dream, ivory.mp3" loop></audio>
+
+<div id="musicPlayer">
+    <i id="toggleBtn" class="ri-volume-up-fill controlBtn"></i>
+</div>
+
+        <script>
+            let menu = document.querySelector('#menu-icon');
+            let navbar = document.querySelector('#main-nav');
+
+            menu.onclick = () => {
+                menu.classList.toggle('bx-x');
+                navbar.classList.toggle('open');
+            };
+        </script>
+    
+        <script>
+            //DATA
+            const DB_QUIZ = [
+                {
+                    question: "1. Apa yang menyebabkan rendahnya kualitas tenaga pengajar di pendidikan tinggi di Indonesia?",
+                    answer: ['A. Kurangnya anggaran yang digunakan untuk pendidikan', 'B. Mutu proses pembelajaran yang belum berkualitas', 'C. Sistem pengujian dan penilaian yang melembaga', 'D. Masalah yang mendasar dalam kualifikasi belajar'],
+                },
+                {
+                    question: "2. Dibawah ini yang bukan upaya meningkatkan kualitas nasional dan relevansi dalam pendidikan nasional adalah...",
+                    answer: ['A. Mengimplementasikan penerapan standar nasional pendidikan', 'B. Melakukan penjamin kualitas melalui suatu proses analisi yang sistematis', 'C. Desentralisasi pendidikan pemberlakuan UU Nomor 22 Tahun 1999', 'D. Melakukan penilaian pendidikan melalui ujian sekolah dan ujian nasional'],
+                },
+                {
+                    question: "3. Apa tujuan utama penyelenggaraan pendidikan di Indonesia?",
+                    answer: ['A. Memberikan kesempatan pendidikan yang sama bagi seluruh siswa.', 'B. Menghasilkan lulusan yang terampil dan berdaya saing di pasar kerja', 'C. Untuk mengurangi tingkat pengangguran di negara tersebut.', 'D. Mendorong siswa untuk melanjutkan pendidikan pada jenjang yang lebih tinggi.'],
+                },
+                {
+                    question: "4. Pernyataan manakah yang paling tepat mendefinisikan pendidikan efektif?",
+                    answer: ['A. Pendidikan yang fokus pada pengembangan nilai-nilai moral peserta didik', 'B. Pendidikan yang memberikan kesempatan yang sama bagi siswa dari semua latar belakang.', 'C. Pendidikan yang menekankan pada pencapaian hasil atau program yang direncanakan.', 'D. Pendidikan yang mengutamakan kebugaran jasmani dan kegiatan olah raga.'],
+                },
+                {
+                    question: "5. Apa kepanjangan dari RSBI?",
+                    answer: ['A. Program Manajemen Berbasis Sekolah', 'B. Rintisan Sekolah Bertaraf Internasional', 'C. Kurikulum Tingkat Satuan Pendidikan', 'D. Badan Standar Nasional Pendidikan'],
+                },
+                {
+                    question: "6. Apa sajakah yang membuat sistem pendidikan di Indonesia ini belum optimal......",
+                    answer: ['A. Adanya masalah pemerataan pendidikan', 'B. Mutu dan relevansi pendidikan', 'C. Efisiensi dan efektivitas pendidikan yang menghalangi tercapainya tujuan pendidikan', 'D. Semua benar'],
+                },
+                {
+                    question: "7. Peran strategi pendidikan bahwa pendidikan merupakan alat yang tidak bisa dipisahkan dalam upaya untuk mewujudkan...",
+                    answer: ['A. Kebodohan , kemiskinan, ketidaktahuan', 'B. Perdamaian sejati, kebebasan dan keadilan sosial', 'C. Keadilan bagi masyarakat, ketindasan dan perang', 'D. Keterbelakangan dan kemiskinan'],
+                },
+                {
+                    question: "8. Kita dalam dampak globalisasi dalam pendidikan kita harus menyiapkan peserta didik dengan kompetensi kompetensi yang diperlukan bagi kehidupan yaitu.....",
+                    answer: ['A. Akademi dan ekonomi', 'B. Agama dan sosial', 'C. Kompetensi keagamaan, akademi, ekonomi dan sosial', 'D. Kompetensi agama akademik dan sosial'],
+                },
+                {
+                    question: "9. Siapa yang melakukan analisis sistematis hasil ujian nasional di Indonesia?",
+                    answer: ['A. Pemerintah (Pemerintah)', 'B. Lembaga Penjaminan Kualitas Pendidikan (LPMP)', 'C. Pemerintah provinsi (Pemerintah Provinsi)', 'D. Badan Akreditasi Nasional Pendidikan (BAN PT)'],
+                },
+                {
+                    question: "10. Intervensi apa yang diberikan berdasarkan analisis hasil ujian nasional di Indonesia?",
+                    answer: ['A. Pendidikan dan pelatihan untuk proses pembelajaran yang efektif', 'B. Bantuan teknis kepada lembaga pendidikan', 'C. Perolehan sumber daya pengajaran', 'D. Semua benar'],
+                },
+                {
+                    question: "11. Apa yang menjadi indikator utama dalam menilai mutu pendidikan?",
+                    answer: ['A. Jumlah murid per kelas', 'B. Tingkat kelulusan siswa', 'C. Warna seragam sekolah', 'D. Prestasi akademis siswa'],
+                },
+                {
+                    question: "12. Mengapa relevansi kurikulum pendidikan sangat penting?",
+                    answer: ['A. Untuk mengurangi libur sekolah', 'B. Agar siswa lebih siap menghadapi dunia nyata', 'C. Hanya untuk memenuhi standar pemerintah', 'D. Untuk menentukan ranking sekolah secara nasional'],
+                },
+                {
+                    question: "13. Apa yang dimaksud dengan desentralisasi pendidikan?",
+                    answer: ['A. Sistem pendidikan hanya diatur oleh pemerintah pusat', 'B. Pembagian wilayah administratif sekolah', 'C. Delegasi keputusan dan tanggung jawab pendidikan kepada tingkat lokal', 'D. Penghapusan sistem pendidikan formal'],
+                },
+                {
+                    question: "14. Apa manfaat utama dari desentralisasi pendidikan?",
+                    answer: ['A. Peningkatan kontrol pusat terhadap kebijakan pendidikan', 'B. Responsibilitas lokal yang lebih besar dan sesuai dengan kebutuhan masyarakat', 'C. Pemusatan kebijakan oleh pemerintah pusat', 'D. Pengurangan peran komunitas dalam pengelolaan pendidikan.'],
+                },
+                {
+                    question: "15. Apa tujuan utama dari standar nasional pendidikan?",
+                    answer: ['A. Membatasi inovasi dalam pembelajaran', 'B. Menjamin kualitas dan kesetaraan pendidikan di seluruh negara', 'C. Meningkatkan persaingan antar sekolah', 'D. Memperkuat kontrol penuh oleh pemerintah pusat'],
+                },
+                {
+                    question: "16. Apa kepanjangan dari KTSP?",
+                    answer: ['A. Kurikulum Tingkat Satuan Pendidikan', 'B. Kurikulum Tenaga Sipil Pendidikan', 'C. Kurikulum Tingkat Satuan Pertama', 'D. Kurikulum Tenaga Sekolah Perubahan'],
+                },
+                {
+                    question: "17. Yang bukan termasuk 4 prinsip Kurikulum 13 yaitu..",
+                    answer: ['A. Demokrasi', 'B. Desentralisasi', 'C. Otonomi pendidikan', 'D. Perkembangan zaman'],
+                },
+                {
+                    question: "18. Apa nama Kurikulum pertama Indonesia?",
+                    answer: ['A. KBK', 'B. KTSP', 'C. Kurikulum Merdeka', 'D. Rencana Pembelajaran'],
+                },
+                {
+                    question: "19. Apa perbedaan in-service dan pre-service?",
+                    answer: ['A. Guru profesional dan guru tidak profesional', 'B. Calon guru dan guru yang sudah bekerja', 'C. Guru yang sudah pensiun dan yang belum', 'D. Guru tetap dan guru honorer'],
+                },
+                {
+                    question: "20. Pelaksanakan Akreditasi dilakukan oleh...",
+                    answer: ['A. Pihak sekolah', 'B. Pemerintah', 'C. Badan Independen (BAN PT) atau (BAN S/M)', 'D. Badan Inteligen'],
+                },
+            ]
+
+            const CORRECT_ANSWER = [3, 2, 1, 0, 1, 3, 1, 2, 1, 3, 3, 1, 2, 1, 1, 0, 3, 3, 1, 2]
+
+
+            //SETUP QUESTION
+
+            function startQuiz(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Check if the form is filled out completely
+            const groupName = document.getElementById('groupName').value;
+            const groupMembers = document.getElementById('groupMembers').value;
+
+            if (groupName.trim() === '' || groupMembers.trim() === '') {
+                // Display the warning message and don't proceed to the quiz
+                document.getElementById('warningMessage').style.display = 'block';
+            } else {
+                // Hide the warning message and proceed to the quiz
+                document.getElementById('warningMessage').style.display = 'none';
+                document.getElementById('opening_window').style.display = "none";
+                document.getElementById('quiz_window').style.display = "block";
+            }
+        }
+
+            let current_q = 0
+            let total_score = 0
+            let saved_answer = []
+            
+            document.addEventListener("DOMContentLoaded", function(event) {
+                setupQuestion()
+            });
+
+            function setupQuestion() {
+                document.getElementById('question').innerText = DB_QUIZ[current_q]['question']
+                document.getElementById('choiceText0').innerText = DB_QUIZ[current_q]['answer'][0]
+                document.getElementById('choiceText1').innerText = DB_QUIZ[current_q]['answer'][1]
+                document.getElementById('choiceText2').innerText = DB_QUIZ[current_q]['answer'][2]
+                document.getElementById('choiceText3').innerText = DB_QUIZ[current_q]['answer'][3]
+            }
+
+            function nextQuestion() {
+                current_q++
+
+                saveAnswer()
+
+                if(current_q > DB_QUIZ.length - 1)
+                    stopQuiz()
+
+                resetState()
+
+                setupQuestion()
+            }
+
+            function resetState() {
+                const chooseAnswer = document.querySelector('input[name="choices"]:checked')
+                if (chooseAnswer != null)
+                    chooseAnswer.checked = false
+            }
+
+            function stopQuiz() {
+                checkScore()
+
+                const groupInfo = document.getElementById('groupInfo');
+                const groupName = document.getElementById('groupName').value;
+                //const groupMembers = document.getElementById('groupMembers').value;
+
+                groupInfo.innerHTML = `Kelompok: ${groupName}`;
+                //<br>Anggota Kelompok: ${groupMembers}
+
+
+                document.getElementById('quiz_window').style.display = "none"
+                document.getElementById('closing_window').style.display = "block"
+
+                document.getElementById('scoreText').innerHTML = "Score Anda ... " + total_score
+                return
+            }
+
+            function saveAnswer() {
+                const answer = checkedRadio = document.querySelector('input[name="choices"]:checked');
+                if (answer != null) {
+                    saved_answer.push(parseInt(answer.getAttribute('data-id')))
+                } else {
+                    //default answer A
+                    saved_answer.push(-1)
+                }
+            }
+
+            function checkScore() {
+                for (i = 0; i < saved_answer.length; i++) {
+                    if (saved_answer[i] == CORRECT_ANSWER[i])
+                        total_score += 5
+                }
+            }
+        </script>
+
+<script>
+    var audio = document.getElementById("myAudio");
+    var toggleBtn = document.getElementById("toggleBtn");
+
+    toggleBtn.addEventListener("click", function() {
+        if (audio.paused) {
+            audio.play();
+            toggleBtn.className = "ri-volume-mute-fill controlBtn"; 
+        } else {
+            audio.pause();
+            toggleBtn.className = "ri-volume-up-fill controlBtn"; 
+        }
+    });
+</script>
+
+</body>
+</html>

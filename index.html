@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta Bname="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>Home</title>
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+    crossorigin="anonymous">
+
+
+
+</head>
+<body>
+  <header>
+          <div class="inner-main-nav" id="main-nav">
+              <ul>
+                <a href="index.html"><i class="ri-home-3-fill" id="rumah"></i></a>
+                <li><a href="#">Kompetensi</a></li>
+                <li><a href="materi.html">Materi</a></li>
+                <li><a href="soal.html">Tes</a></li>
+                <li><a href="referensi.html">Referensi</a></li>
+                <li><a href="profil.html">Profil</a></li>
+              </ul>
+          </div>
+          <div class="bx bx-menu" id="menu-icon"></div>
+    </header>
+    <div class="wrappermenu">
+
+        <!-- Page Content  -->
+        <div id="content">
+            <section id="about" class="about">
+                <div class="row2">
+                    <div class="content2">
+                        <h3>Selamat Datang</h3>
+                        <p>Ilmu Pendidikan</p>
+                        <p>Mawardi</p>
+                        <p>Kelas 1A Reguler</p>
+                        <p>Pendidikan Guru Sekolah Dasar</p>
+                        <p>Universitas Muhammadiyah Tangerang</p>
+                        <a href="petunjuk.html" class="cta">Petunjuk</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+
+    <div class="overlay"></div>
+        <script>
+            let menu = document.querySelector('#menu-icon');
+            let navbar = document.querySelector('#main-nav');
+
+            menu.onclick = () => {
+                menu.classList.toggle('bx-x');
+                navbar.classList.toggle('open');
+            };
+        </script>
+
+</body>
+</html>

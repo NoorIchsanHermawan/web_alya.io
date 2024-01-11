@@ -1,0 +1,306 @@
+/*
+    DEMO STYLE
+*/
+
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: black;
+}
+
+.sidebar-header h1 {
+    font-size: 20px;
+    background: #f7bd00;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 170px;
+    border-radius: 20px;
+}
+
+
+a,
+a:hover,
+a:focus {
+    color: #000000;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.inner-main-nav ul li a:hover{
+    color: #F2BD59;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    width: 100%;
+    transition: 0.6s;
+    padding: 25px 0%; /* Adjusted padding */
+    border-bottom: 1px solid #ddd;
+    background-color: #0198a3;
+}
+
+.inner-main-nav {
+    text-align: center;
+}
+
+.inner-main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.inner-main-nav li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.inner-main-nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: lighter;
+    font-size: 16px;
+}
+
+.inner-main-nav i {
+    color: #fff; 
+    font-size: 20px; 
+    margin-right: 5px; 
+}
+
+i:hover {
+    color: #F2BD59;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#menu-icon {
+    display: none; /* You may customize this for responsive design */
+}
+
+.about {
+    font-size: 35px;
+    text-align: center; 
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    background-image: url(enlarge_gurungaji.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 2rem;
+}
+
+.about .content2 {
+    flex: 1 1 45rem; 
+    padding: 0 50px; 
+}
+
+.about h3 {
+    margin: 0;
+    font-size: 45px;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+}
+
+.about p {
+    margin: 10px 0;
+    font-size: 20px;
+    font-weight: 500;
+    width: 550px; 
+    color: rgb(0, 0, 0);
+
+}
+
+.about .cta {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #F2BD59;
+    color: #333;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+.about .cta:hover {
+    background: transparent;
+    cursor: pointer;
+    color: rgb(7, 7, 7);
+    transform: scale(1.03);
+    transition: all 1s ease;
+}
+
+#pdf-container {
+    width: 80vw;
+    height: 80vh;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  @media only screen and (max-width: 600px) {
+    #pdf-container {
+      width: 90vw;
+      height: 60vh;
+    }
+  }
+
+#menu-icon {
+    color: rgb(255, 255, 255);
+    font-size: 35px;
+    z-index: 10001;
+    cursor: pointer;
+    display: none;
+    padding-left: 50px;
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 1300px) {
+    .inner-main-nav ul li a {
+        margin: 0 15px;
+        font-size: 13px;
+    }
+
+    .insurance {
+        height: 70vh;
+    }
+    
+    .overlay-text {
+        font-size: 40px; 
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    header {
+        border-bottom: 0;
+    }
+    #menu-icon{
+        display: block;
+    }
+
+    #rumah{
+        font-size: 30px;
+    }
+    .inner-main-nav ul li a {
+        padding: 0 0 15px;
+        margin: 0 15px;
+        font-size: 20px;
+    }
+    .inner-main-nav ul {
+        margin: 0;
+        padding: 20px 0;
+    }
+    .login{
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    .inner-main-nav{
+        position: absolute;
+        top: 100%;
+        left: -100%;
+        width: 300px;
+        height: 100vh;
+        background: #0198a3;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 50px 30px;
+        transition: all .55s ease;
+    }
+    .inner-main-nav a{
+        margin-right: 0;
+        margin: 2px 0;
+    }
+    .inner-main-nav.open{
+        left: 0;
+    }
+    .logo {
+        padding: 0;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .inner-main-nav ul li {
+        display: block;
+        margin: 10px 0;
+        padding-top: 30px;
+    }
+
+    .about {
+        padding: 1rem; 
+    }
+
+    .about .content2 {
+        flex: 1 1 100%; 
+        padding: 0 10px; 
+    }
+
+    .about .cta {
+        padding: 15px 30px; 
+        font-size: 30px; 
+        margin: 30px auto;
+    }
+}
+
+
+@media (max-width: 768px) {
+    td,tr{
+        font-size: 13px;
+    }
+    .about {
+        text-align: center;
+        padding: 2rem 1rem 0; 
+    }
+
+    .about-img2 img {
+        padding-top: 3rem;
+    }
+
+    .about .content2 {
+        padding: 0 20px; 
+    }
+
+    .about h3 {
+        font-size: 30px;
+    }
+
+    .about p {
+        width: 100%;
+    }
+
+    .about .cta {
+        padding: 10px 15px;
+        font-size: 14px; 
+    }
+
+    .overlay-text {
+        top: 50%;
+        font-size: 30px; 
+    }
+}
+
+
+@media (min-width: 769px) {
+    .LC{
+        width: 160px;
+    }
+}

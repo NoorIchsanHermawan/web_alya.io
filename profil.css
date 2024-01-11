@@ -1,0 +1,216 @@
+/*
+    DEMO STYLE
+*/
+
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: black;
+}
+
+.sidebar-header h1 {
+    font-size: 20px;
+    background: #f7bd00;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 170px;
+    border-radius: 20px;
+}
+
+
+a,
+a:hover,
+a:focus {
+    color: #F2BD59;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.inner-main-nav ul li a:hover{
+    color: #F2BD59;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    width: 100%;
+    transition: 0.6s;
+    padding: 25px 0%; /* Adjusted padding */
+    background-color: #0198a3;
+}
+
+.inner-main-nav {
+    text-align: center;
+}
+
+.inner-main-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.inner-main-nav li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.inner-main-nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: lighter;
+    font-size: 16px;
+}
+
+.inner-main-nav i {
+    color: #fff; 
+    font-size: 20px; 
+    margin-right: 5px; 
+}
+
+i:hover {
+    color: #F2BD59;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+#menu-icon {
+    display: none; /* You may customize this for responsive design */
+}
+
+section {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+h2 {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    margin-top: 3em;
+    padding: 1em;
+    font-weight: lighter;
+}
+
+.profile-card {
+    background-color: #F2BD59;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+    font-size: 20px;
+}
+
+@media screen and (max-width: 1000px) {
+    .profile-card {
+        width: 600px;
+        font-size: 30px;
+    }
+    h2{
+        margin-top: 110px;
+        padding: 2em;
+    }
+}
+
+#menu-icon {
+    color: rgb(255, 255, 255);
+    font-size: 35px;
+    z-index: 10001;
+    cursor: pointer;
+    display: none;
+    padding-left: 50px;
+}
+
+/* Media Queries for Responsiveness */
+@media screen and (max-width: 1300px) {
+    .inner-main-nav ul li a {
+        margin: 0 15px;
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    header {
+        border-bottom: 0;
+    }
+    #menu-icon{
+        display: block;
+    }
+
+    #rumah{
+        font-size: 30px;
+    }
+    .inner-main-nav ul li a {
+        padding: 0 0 15px;
+        margin: 0 15px;
+        font-size: 20px;
+    }
+    .inner-main-nav ul {
+        margin: 0;
+        padding: 20px 0;
+    }
+    .login{
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+    .inner-main-nav{
+        position: absolute;
+        top: 100%;
+        left: -100%;
+        width: 300px;
+        height: 100vh;
+        background: #0198a3;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 50px 30px;
+        transition: all .55s ease;
+    }
+    .inner-main-nav a{
+        margin-right: 0;
+        margin: 2px 0;
+    }
+    .inner-main-nav.open{
+        left: 0;
+    }
+    .logo {
+        padding: 0;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .inner-main-nav ul li {
+        display: block;
+        margin: 10px 0;
+        padding-top: 30px;
+    }
+    .profile-card {
+        width: 600px;
+        font-size: 30px;
+    }
+    h2{
+        margin-top: 110px;
+        padding: 2em;
+    }
+}

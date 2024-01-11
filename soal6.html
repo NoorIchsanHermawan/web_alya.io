@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta Bname="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="soal.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <title>Soal Kuis</title>
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+    crossorigin="anonymous">
+
+
+
+</head>
+<body>
+<div id="quiz-container">
+    <div id="opening_window">
+        <h1>Selamat Mengerjakan !</h1>
+        <h3>Soal 6. PENDIDIKAN NILAI</h3>
+        <p id="warningMessage" style="color: red; display: none;">Silakan isi form dengan lengkap.</p>
+        <form id="groupForm">
+            <label class="openingLabel" for="groupName">Nama Kelompok:</label>
+            <input type="text" id="groupName" required>
+    
+            <label class="openingLabel" for="groupMembers">Anggota Kelompok:</label>
+            <textarea id="groupMembers" rows="1" required></textarea>
+            <textarea id="groupMembers" rows="1" required></textarea>
+            <textarea id="groupMembers" rows="1" required></textarea>
+            <textarea id="groupMembers" rows="1" required></textarea>
+    
+            <button onclick="startQuiz(event)">Mulai</button>
+        </form>
+        
+    </div>
+
+    <div id="quiz_window" class="hidden">
+
+        <h1 id="question"></h1>
+
+        <input type="radio" name="choices" data-id="0" id="choice0">
+        <label class="quizLabel" for="choice0" id="choiceText0"></label>
+
+        <input type="radio" name="choices" data-id="1" id="choice1">
+        <label class="quizLabel" for="choice1" id="choiceText1"></label>
+
+        <input type="radio" name="choices" data-id="2" id="choice2">
+        <label class="quizLabel" for="choice2" id="choiceText2"></label>
+
+        <input type="radio" name="choices" data-id="3" id="choice3">
+        <label class="quizLabel" for="choice3" id="choiceText3"></label>
+
+        <br>
+
+        <button onclick="nextQuestion()">Next</button>
+
+    </div>
+
+    <div id="closing_window" class="hidden">
+        <h1>Selesai !</h1>
+        <h2 id="groupInfo"></h2>
+        <h2 id="scoreText"></h2>
+        <a href="soal.html" class="cta">Daftar Soal</a>
+    </div>
+</div>
+
+<audio id="myAudio" src="dream, ivory.mp3" loop></audio>
+
+<div id="musicPlayer">
+    <i id="toggleBtn" class="ri-volume-up-fill controlBtn"></i>
+</div>
+
+        <script>
+            let menu = document.querySelector('#menu-icon');
+            let navbar = document.querySelector('#main-nav');
+
+            menu.onclick = () => {
+                menu.classList.toggle('bx-x');
+                navbar.classList.toggle('open');
+            };
+        </script>
+    
+        <script>
+            //DATA
+            const DB_QUIZ = [
+                {
+                    question: "1. Pada tahap apa seseorang sudah mulai bersedia menerima dan menanggapi secara aktif stimulus dalam bentuk respons yang nyata…",
+                    answer: ['A. Tahap Valuing (memberi nilai)', 'B. Tahap Characterization (karakterisasi nilai)', 'C. Tahap Responding (menanggapi)', 'D. Tahap Receiving (menyimak)'],
+                },
+                {
+                    question: "2. Manakah yang bukan nilai-nilai yang dibagi dari Mac Scheller…",
+                    answer: ['A. Nilai Hidup', 'B. Nilai Kenikmatan', 'C. Nilai Sosial', 'D. Nilai Kejiwaan'],
+                },
+                {
+                    question: "3. Siapa yang mengatakan bahwa nilai adalah kualitas atau keadaan sesuatu yang bermanfaat bagi manusia, baik secara lahir maupun batin…",
+                    answer: ['A. Widjaja (1985: 155)', 'B. Darji Darmodiharjo (1995: 1)', 'C. Cholisin (1989: 25)', 'D. Rosyadi (2004: 114)'],
+                },
+                {
+                    question: "4. Pendekatan apa yang perkembangan moral nya dilihat sebagai perkembangan tingkat berpikir dalam membuat pertimbangan moral, dari suatu tingkat uang lebih rendah menuju suatu tingkat yang lebih tinggi…",
+                    answer: ['A. Pendekatan Perkembangan Kognitif', 'B. Pendekatan Analisis Nilai', 'C. Pendekatan Penanaman Nilai', 'D. Pendekatan Pembelajaran Berbuat'],
+                },
+                {
+                    question: "5. Sistem pendidikan di Indonesia saat ini telah kehilangan makna dan nilai, hal itu terjadi karna pelaku pendidikan saat ini lebih mementingkan...",
+                    answer: ['A. Gaya', 'B. Skil', 'C. Knowledge', 'D. Wisdom'],
+                },
+                {
+                    question: "6. Pendekatan yang memberi penekanan pada penanaman nilai-nilai sosial dalam diri siswa adalah pendekatan...",
+                    answer: ['A. Pendekatan penanaman nilai', 'B. Pendekatan perkembangan kognitif', 'C. Pendekatan analisis nilai', 'D. Pendekatan klarifikasi nilai'],
+                },
+                {
+                    question: "7. Nilai pada dasarnya disebut sebagai standar penuntun dalam menentukan sesuatu itu baik, indah, berharga atau tidak adalah pengertian menurut...",
+                    answer: ['A. Achmadi', 'B. Darji Darmodiharjo', 'C. Fraenkel', 'D. Gordon M. hart'],
+                },
+                {
+                    question: "8. Pendapat siapa kah yang menyatakan bahwa pelaksaan Pendidikan Nilai dapat dilakukan oleh semua orang yang terlibat dalam proses pendidikan termasuk di dalamnya kepala sekolah dan staf administrasi…",
+                    answer: ['A. Kaswardi (1993: 3)', 'B. Aeni (2009)', 'C. Zaim Elmubarok (2009: 61-75)', 'D. Mulyana (1999)'],
+                },
+                {
+                    question: "9. Apa saja metode-metode pengajaran yang sering digunakan dalam pembelajaran adalah…",
+                    answer: ['A. Nilai moral, penyelidikan kepustakaan, penyelidikan lapangan', 'B. Kognitif, nilai sosial, berpikir logis', 'C. Aspek perkembangan, pendekatan moral, pendekatan perkembangan', 'D. Pendekatan moral, nilai moral, aspek perkembangan'],
+                },
+                {
+                    question: "10. Perhatikan pernyataan-pernyataan berikut. (1) Pendekatan perkembangan kognitif mudah digunakan (2) memberikan penekanan pada aspek kognitif dan perkembangan (3) membantu siswa dalam membuat pertimbangan moral (4)mendorong siswa untuk mendiskusikan alasan-alasannya ketika memilih nilai dan posisinya dalam suatu masalah moral Hal-Hal tujuan yang ingin dicapai oleh pendekatan nilai adalah…",
+                    answer: ['A. (1) dan (2)', 'B. (2) dan (3)', 'C. (2) dan (4)', 'D. (3) dan (4)'],
+                },
+                {
+                    question: "11. perhatikan data berikut. (1) membantu siswa untuk menggunakan kemampuan berpikir logis (2) membantu pengajaran yang sering digunakan dalam pembelajaran secara individu (3) membantu siswa untuk menggunakan proses berpikir rasional dan analtik (4) membantu Perkembangan nilai nilai sosial ada dua tujuan utama pendidikan moral menurut pendekatan ini disebut…",
+                    answer: ['A. (1), (3), dan (4)', 'B. (2), (4), dan (1)', 'C. (1) dan (3)', 'D. (1) dan (4)'],
+                },
+                {
+                    question: "12. “Pendidikan nasional bertujuan membentuk manusia yang beriman dan bertakwa kepada Tuhan Yang Maha Esa, berakhlak dan berbudi mulia, sehat, berilmu, cakap, serta menjadi warga negara yang demokratis dan bertanggungjawab terhadap kesejahteraan masyarakat dan tanah air. \" Fungsi pendidikan yang terdapat pasal...",
+                    answer: ['A. Pasal 3 UU No. 20 tahun 2003', 'B. Pasal 3 UU No. 21 tahun 2003', 'C. Pasal 2 UU No. 20 tahun 2003', 'D. Pasal 2 UU No. 21 tahun 2004'],
+                },
+                {
+                    question: "13. perhatikan metode data berikut. (1) membantu siswa untuk menyadari dan mengidentifikasi nilai-nilai mereka sendiri serta nilai-nilainya sendiri (2) membantu siswa supaya mereka mampu menggunakan secara bersama-sama kemampuan berpikir rasional dan kesadaran emosional. (3) membantu pengajaran yang sering digunakan dalam pembelajaran secara moral dan sosial (4) membantu siswa agar kemampuan berpikir logis (5) membantu siswa supaya mereka mampu berkomunikasi secara terbuka dan jujur Tujuan pendidikan nilai menurut pendekatan ini ada tiga, yang pertama adalah...",
+                    answer: ['A. (4), (5), dan (2)', 'B. (1), (2), dan (5)', 'C. (5), (1), dan (4)', 'D. (3), (4), dan (1)'],
+                },
+                {
+                    question: "14. Hal-Hal yang sangat di pentingkan dalam program pendidikan adalah…",
+                    answer: ['A. Membantu nilai yang bersifat subjektif', 'B. Untuk mengembangkan keterampilan', 'C. Mengembangkan keterampilan siswa dalam melakukan proses menilai', 'D. Mendorong siswa dengan pertanyaan-pertanyaan relavan'],
+                },
+                {
+                    question: "15. Menurut Krathwohl dalam Mawardi Lubis (2008: 16-18) proses pembentukan nilai pada anak dapat dikelompokkan dalam 5 tahap, yaitu…",
+                    answer: ['A. Tahap Mentindak Lanjuti', 'B. Tahap Menanggapi', 'C. Tahap Menyimak', 'D. Tahap Receiving, Responding, Valuing, Mengorganisasikan, dan Karakteristik'],
+                },
+                {
+                    question: "16. Sikap dan perilaku yang tidak bergantung kepada orang lain dalam melakukan sesuatu merupakan nilai-nilai pendidikan karakter yaitu…",
+                    answer: ['A. Religius', 'B. Mandiri', 'C. Gotong Royong', 'D. Integritas'],
+                },
+                {
+                    question: "17. Menurut cholisin (1989;25) adalah…",
+                    answer: ['A. Nilai pada dasarnya disebut sebagai standar penuntun', 'B. Nilai menjadi ukuran untuk menghukum atau memilih tindakan atau tujuan tertentu', 'C. Nilai itu selalu dihadapi oleh manusia dalam hidup kesehariannya', 'D. Nilai adalah kualitas atau keadaan'],
+                },
+                {
+                    question: "18. Nilai di rumuskan dari dua pengertian yang terkandung dalam istilah pendidikan dan istilah nilai…",
+                    answer: ['A. melekat', 'B. menilai', 'C. menyatu', 'D. menimbang'],
+                },
+                {
+                    question: "19. Arti value bisa diartikan sebagai…",
+                    answer: ['A. Harga taksiran', 'B. Pengkualitasan', 'C. Pengtaksiran', 'D. Penghargaan'],
+                },
+                {
+                    question: "20. Ada dua tujuan utama pendidikan moral, yaitu…",
+                    answer: ['A. memberikan kesempatan kepada siswa untuk melakukan perbuatan nilai moral, mendorong siswa untuk melihat diri mereka sebagai makhluk sosial', 'B. memberi kesempatan kepada siswa untuk melakukan perbutuan moral, mendorong siswa untuk melihat diri mereka sebagai makhluk individu dan makhluk sosial', 'C. tidak memiliki kebebasan sepenuhnya', 'D. tidak memiliki kebebasan sepenuhnya'],
+                },
+            ]
+
+            const CORRECT_ANSWER = [2, 2, 1, 0, 1, 0, 2, 3, 0, 3, 2, 0, 1, 2, 3, 1, 0, 2, 3, 1]
+
+
+            //SETUP QUESTION
+
+            function startQuiz(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
+
+            // Check if the form is filled out completely
+            const groupName = document.getElementById('groupName').value;
+            const groupMembers = document.getElementById('groupMembers').value;
+
+            if (groupName.trim() === '' || groupMembers.trim() === '') {
+                // Display the warning message and don't proceed to the quiz
+                document.getElementById('warningMessage').style.display = 'block';
+            } else {
+                // Hide the warning message and proceed to the quiz
+                document.getElementById('warningMessage').style.display = 'none';
+                document.getElementById('opening_window').style.display = "none";
+                document.getElementById('quiz_window').style.display = "block";
+            }
+        }
+
+            let current_q = 0
+            let total_score = 0
+            let saved_answer = []
+            
+            document.addEventListener("DOMContentLoaded", function(event) {
+                setupQuestion()
+            });
+
+            function setupQuestion() {
+                document.getElementById('question').innerText = DB_QUIZ[current_q]['question']
+                document.getElementById('choiceText0').innerText = DB_QUIZ[current_q]['answer'][0]
+                document.getElementById('choiceText1').innerText = DB_QUIZ[current_q]['answer'][1]
+                document.getElementById('choiceText2').innerText = DB_QUIZ[current_q]['answer'][2]
+                document.getElementById('choiceText3').innerText = DB_QUIZ[current_q]['answer'][3]
+            }
+
+            function nextQuestion() {
+                current_q++
+
+                saveAnswer()
+
+                if(current_q > DB_QUIZ.length - 1)
+                    stopQuiz()
+
+                resetState()
+
+                setupQuestion()
+            }
+
+            function resetState() {
+                const chooseAnswer = document.querySelector('input[name="choices"]:checked')
+                if (chooseAnswer != null)
+                    chooseAnswer.checked = false
+            }
+
+            function stopQuiz() {
+                checkScore()
+
+                const groupInfo = document.getElementById('groupInfo');
+                const groupName = document.getElementById('groupName').value;
+                //const groupMembers = document.getElementById('groupMembers').value;
+
+                groupInfo.innerHTML = `Kelompok: ${groupName}`;
+                //<br>Anggota Kelompok: ${groupMembers}
+
+
+                document.getElementById('quiz_window').style.display = "none"
+                document.getElementById('closing_window').style.display = "block"
+
+                document.getElementById('scoreText').innerHTML = "Score Anda ... " + total_score
+                return
+            }
+
+            function saveAnswer() {
+                const answer = checkedRadio = document.querySelector('input[name="choices"]:checked');
+                if (answer != null) {
+                    saved_answer.push(parseInt(answer.getAttribute('data-id')))
+                } else {
+                    //default answer A
+                    saved_answer.push(-1)
+                }
+            }
+
+            function checkScore() {
+                for (i = 0; i < saved_answer.length; i++) {
+                    if (saved_answer[i] == CORRECT_ANSWER[i])
+                        total_score += 5
+                }
+            }
+        </script>
+
+<script>
+    var audio = document.getElementById("myAudio");
+    var toggleBtn = document.getElementById("toggleBtn");
+
+    toggleBtn.addEventListener("click", function() {
+        if (audio.paused) {
+            audio.play();
+            toggleBtn.className = "ri-volume-mute-fill controlBtn"; 
+        } else {
+            audio.pause();
+            toggleBtn.className = "ri-volume-up-fill controlBtn"; 
+        }
+    });
+</script>
+
+</body>
+</html>
